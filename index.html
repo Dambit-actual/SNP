@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sovereign National Party — Australia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:      #1B2A4A;
+    --mid-blue:  #3A6EA5;
+    --light-blue:#4E87BF;
+    --red:       #C8102E;
+    --white:     #ffffff;
+    --offwhite:  #F2F4F7;
+    --muted:     rgba(27,42,74,0.45);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--white); color: var(--navy); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(27,42,74,0.97);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 56px; height: 68px;
+    border-bottom: 3px solid var(--red);
+  }
+  .nav-logo { height: 80px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.65); text-decoration: none;
+    font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO — diagonal split matching poster style */
+  #hero {
+    min-height: 100vh;
+    background: var(--mid-blue);
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  /* White diagonal slash — mirrors the poster */
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 52%;
+    background: var(--white);
+    clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+  .hero-left {
+    position: relative; z-index: 2;
+    padding: 140px 0 100px 56px;
+    width: 55%;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-eyebrow-line { width: 36px; height: 2px; background: rgba(255,255,255,0.6); }
+  .hero-eyebrow-text { font-size: 10px; font-weight: 700; letter-spacing: 5px; color: rgba(255,255,255,0.65); text-transform: uppercase; }
+  .hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(52px, 7vw, 90px);
+    font-weight: 900; color: var(--white);
+    line-height: 1.02; margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.8s 0.35s forwards;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+  .hero-slogan {
+    font-size: 11px; font-weight: 700; letter-spacing: 6px;
+    color: rgba(255,255,255,0.7); text-transform: uppercase;
+    border-left: 3px solid var(--white); padding-left: 16px;
+    margin-bottom: 48px;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-cta {
+    display: inline-block; background: var(--navy); color: var(--white);
+    text-decoration: none; font-size: 10px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase;
+    padding: 18px 38px; transition: background 0.2s, transform 0.2s;
+    opacity: 0; animation: fadeUp 0.8s 0.65s forwards;
+  }
+  .hero-cta:hover { background: var(--red); transform: translateY(-2px); }
+  .hero-right {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 52%; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding-left: 8%;
+  }
+  .hero-logo-img {
+    width: clamp(320px, 50vw, 900px);
+    height: auto;
+    opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    filter: drop-shadow(0 8px 32px rgba(27,42,74,0.18));
+  }
+
+  /* SECTION COMMON */
+  section { padding: 100px 56px; }
+  .section-label { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .section-label-line { width: 28px; height: 2px; background: var(--red); }
+  .section-label-text { font-size: 9px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--red); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4.5vw, 56px);
+    font-weight: 900; color: var(--navy); line-height: 1.08; margin-bottom: 28px;
+  }
+
+  /* ABOUT */
+  #about { background: var(--offwhite); position: relative; overflow: hidden; }
+  #about::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: var(--mid-blue); }
+  .about-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .about-body { font-size: 16px; color: rgba(27,42,74,0.75); line-height: 1.8; }
+  .about-body p + p { margin-top: 20px; }
+  .about-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .stat-block {
+    background: var(--navy); padding: 36px 28px;
+    position: relative; overflow: hidden; transition: background 0.3s;
+  }
+  .stat-block:hover { background: var(--mid-blue); }
+  .stat-block::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 3px; background: var(--red);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+  }
+  .stat-block:hover::after { transform: scaleX(1); }
+  .stat-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+  /* VALUES */
+  #values { background: var(--white); }
+  .values-inner { max-width: 1200px; margin: 0 auto; }
+  .values-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 70px; }
+  .values-intro { font-size: 15px; color: var(--muted); line-height: 1.75; margin-top: 20px; }
+  .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .value-card {
+    background: var(--navy); padding: 44px 30px;
+    position: relative; overflow: hidden; transition: transform 0.3s, background 0.3s;
+  }
+  .value-card:hover { transform: translateY(-6px); background: var(--mid-blue); }
+  .value-card::before {
+    content: attr(data-num); position: absolute; top: -10px; right: 18px;
+    font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900;
+    color: rgba(255,255,255,0.04); pointer-events: none;
+  }
+  .value-icon { width: 36px; height: 3px; background: var(--red); margin-bottom: 28px; }
+  .value-title { font-size: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 14px; }
+  .value-body { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+  /* PLATFORM */
+  #platform { background: var(--navy); position: relative; overflow: hidden; }
+  #platform::before {
+    content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 40%;
+    background: var(--mid-blue); opacity: 0.08;
+    clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  #platform .section-title { color: var(--white); }
+  #platform .section-label-text { color: rgba(200,16,46,0.9); }
+  #platform .section-label-line { background: var(--red); }
+  .platform-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .platform-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 56px; }
+  .platform-item {
+    background: rgba(255,255,255,0.04); border-top: 3px solid transparent;
+    padding: 40px 32px; transition: background 0.3s, border-color 0.3s;
+  }
+  .platform-item:hover { background: rgba(58,110,165,0.2); border-top-color: var(--mid-blue); }
+  .platform-num { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--mid-blue); letter-spacing: 2px; margin-bottom: 16px; }
+  .platform-title { font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--white); margin-bottom: 14px; }
+  .platform-body { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.75; }
+
+  /* POLICY */
+  #policy { background: var(--offwhite); }
+  .policy-inner { max-width: 1200px; margin: 0 auto; }
+  .policy-docs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 50px; }
+  .policy-doc {
+    background: var(--white); padding: 40px 34px;
+    border-bottom: 3px solid transparent;
+    text-decoration: none; display: block;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .policy-doc:hover { border-bottom-color: var(--mid-blue); transform: translateY(-4px); }
+  .policy-doc-icon {
+    width: 40px; height: 40px; background: var(--mid-blue);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 22px;
+  }
+  .policy-doc-icon svg { width: 20px; height: 20px; fill: none; stroke: var(--white); stroke-width: 1.5; }
+  .policy-doc-title { font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--navy); margin-bottom: 10px; }
+  .policy-doc-desc { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.65; margin-bottom: 18px; }
+  .policy-doc-link { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid-blue); display: flex; align-items: center; gap: 8px; }
+  .policy-doc-link::after { content: '→'; font-size: 12px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); border-top: 4px solid var(--red);
+    padding: 64px 56px 40px; position: relative; overflow: hidden;
+  }
+  footer::after {
+    content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 35%;
+    background: var(--mid-blue); opacity: 0.07;
+    clip-path: polygon(22% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .footer-logo { height: 150px; width: auto; filter: brightness(0) invert(1); margin-bottom: 16px; display: block; }
+  .footer-slogan { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .x-link {
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
+    color: rgba(255,255,255,0.65); font-size: 10px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase; padding: 14px 22px;
+    border: 1px solid rgba(255,255,255,0.15); transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .x-link:hover { border-color: var(--mid-blue); color: var(--white); background: rgba(58,110,165,0.15); }
+  .x-link svg { width: 16px; height: 16px; fill: currentColor; }
+  .footer-bottom {
+    max-width: 1200px; margin: 40px auto 0; padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    position: relative; z-index: 1;
+  }
+  .footer-copy { font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 0 24px; }
+    section { padding: 72px 24px; }
+    #hero::after { display: none; }
+
+    /* HERO */
+    #hero { flex-direction: column; align-items: stretch; }
+    .hero-left { width: 100%; padding: 130px 24px 36px; }
+    .hero-right {
+      position: relative;
+      right: auto; top: auto; bottom: auto;
+      width: 100%;
+      padding: 0 24px 72px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-logo-img { width: min(220px, 70vw); }
+
+    /* GRIDS */
+    .about-inner { grid-template-columns: 1fr; gap: 48px; }
+    .values-header { grid-template-columns: 1fr; gap: 0; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .platform-grid { grid-template-columns: 1fr 1fr; }
+    .policy-docs { grid-template-columns: 1fr 1fr; }
+
+    footer { padding: 48px 24px 32px; }
+    .footer-right { align-items: flex-start; }
+
+    /* MOBILE NAV */
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      right: 0;
+      padding: 14px 18px;
+      background: rgba(27,42,74,0.97);
+      backdrop-filter: blur(10px);
+      flex-direction: column;
+      gap: 12px;
+      border-bottom: 3px solid var(--red);
+    }
+    .nav-links.is-open { display: flex; }
+  }@media (max-width: 560px) {
+    .values-grid { grid-template-columns: 1fr; }
+    .platform-grid { grid-template-columns: 1fr; }
+    .policy-docs { grid-template-columns: 1fr; }
+    .about-stat-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img class="nav-logo" src="assets/img/snp-logo-nav.svg" alt="Sovereign National Party">
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#values">Values</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#policy">Policy</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Australia · Est. 2025</span>
+    </div>
+    <h1 class="hero-title">Sovereign<br>National<br>Party</h1>
+    <div class="hero-slogan">Your Home &nbsp;·&nbsp; Your Values &nbsp;·&nbsp; Your Australia</div>
+    <a href="#about" class="hero-cta">Our National Agenda</a>
+  </div>
+  <div class="hero-right">
+    <img class="hero-logo-img" src="assets/img/snp-logo-hero.svg" alt="SNP Logo">
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div>
+      <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Who We Are</span></div>
+      <h2 class="section-title reveal">A New Force<br>for Australia</h2>
+      <div class="about-body reveal">
+        <p>The Sovereign National Party stands as a vanguard for Australia's autonomy, heritage, and future. We advocate for policies that safeguard our nation's independence, ensure economic vitality, and promote social unity.</p>
+        <p>In an era where the interests of the Australian people have been sidelined, the SNP exists to realign our nation's course — with transparency, integrity, and absolute dedication to the Australian public.</p>
+        <p>Our mission is to preserve public assets as national treasures, stewarded for the collective benefit of all Australians, now and into the future.</p>
+      </div>
+    </div>
+    <div class="about-stat-grid reveal">
+      <div class="stat-block"><div class="stat-number">4</div><div class="stat-label">Core Values</div></div>
+      <div class="stat-block"><div class="stat-number">9</div><div class="stat-label">Policy Areas</div></div>
+      <div class="stat-block"><div class="stat-number">1</div><div class="stat-label">Nation First</div></div>
+      <div class="stat-block"><div class="stat-number">AU</div><div class="stat-label">Est. 2025</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="values-inner">
+    <div class="values-header">
+      <div>
+        <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Core Ideologies</span></div>
+        <h2 class="section-title reveal">What We<br>Stand For</h2>
+      </div>
+      <p class="values-intro reveal">Four founding principles guide every decision, every policy, and every action taken by the Sovereign National Party.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal" data-num="01"><div class="value-icon"></div><div class="value-title">National Sovereignty</div><div class="value-body">Australia's sovereign right to govern its own affairs — controlling our borders, making independent economic decisions, and preserving our cultural heritage — is non-negotiable.</div></div>
+      <div class="value-card reveal" data-num="02"><div class="value-icon"></div><div class="value-title">Economic Prosperity</div><div class="value-body">A dynamic open-market economy underpinned by prudent fiscal policies, minimal regulatory burdens, and strong support for entrepreneurship and free enterprise.</div></div>
+      <div class="value-card reveal" data-num="03"><div class="value-icon"></div><div class="value-title">Social Cohesion</div><div class="value-body">Unity and a shared sense of purpose strengthen our nation. We commit to a cohesive society that values respect, mutual understanding, and our collective heritage.</div></div>
+      <div class="value-card reveal" data-num="04"><div class="value-icon"></div><div class="value-title">Responsible Governance</div><div class="value-body">Integrity, transparency, and accountability are the cornerstones of the SNP. The interests of the Australian people are always — and unapologetically — at the forefront.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section id="platform">
+  <div class="platform-inner">
+    <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Our Platform</span></div>
+    <h2 class="section-title reveal">The Agenda for<br>a Sovereign Australia</h2>
+    <div class="platform-grid">
+      <div class="platform-item reveal"><div class="platform-num">01</div><div class="platform-title">Economy & Family</div><div class="platform-body">Abolish personal income tax. Zero-interest family loans for homes and vehicles. Incentives for first-time buyers and local industry. Australians keep more of what they earn.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">02</div><div class="platform-title">Border Security</div><div class="platform-body">Robust border protection is paramount to sovereignty. Advanced surveillance, enhanced enforcement, and immigration managed strictly in the national interest.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">03</div><div class="platform-title">Infrastructure & Liveability</div><div class="platform-body">No government should grow the population faster than it grows the systems that serve it. Housing, healthcare, schools, and transport lead population policy.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">04</div><div class="platform-title">National Manufacturing</div><div class="platform-body">Revitalise Australian industry. Fair duties on imports. Prioritise Australian-made products. Ensure foreign entities contribute equitably to the market they profit from.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">05</div><div class="platform-title">Healthcare</div><div class="platform-body">Healthcare is a right for Australian citizens. Expand the state-funded hospital network. Subsidise essential treatment. Prioritise the people who built and fund this nation.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">06</div><div class="platform-title">National Defence</div><div class="platform-body">Reinstate mandatory national service for males 17–35. A well-prepared Australia is a secure Australia. Full support for returned and serving servicemen and women.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">07</div><div class="platform-title">Education</div><div class="platform-body">Restore literacy, numeracy, and science as core objectives. Mandatory Australian history and civics. Massively expand TAFE and vocational pathways equal to university.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">08</div><div class="platform-title">Law & Order</div><div class="platform-body">Decisive action on rising crime. Youth accountability from age 12. Immediate deportation of non-citizens convicted of offences. Community safety is not negotiable.</div></div>
+      <div class="platform-item reveal"><div class="platform-num">09</div><div class="platform-title">Australian Labour Corps</div><div class="platform-body">A permanent national civilian institution for civic service, emergency response, rehabilitation, and a recognised pathway to citizenship — contributing directly to national resilience.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICY DOCS -->
+<section id="policy">
+  <div class="policy-inner">
+    <div class="section-label reveal"><div class="section-label-line"></div><span class="section-label-text">Policy Documents</span></div>
+    <h2 class="section-title reveal">Read Our<br>Full Policies</h2>
+    <div class="policy-docs">
+      <a href="https://www.dropbox.com/scl/fi/ahvzqfux60dozbt03mh45/SNP_National_Agenda_2026.pdf?rlkey=zqyh93417qnsildk6neuw5ltc&st=sd4ybn2z&dl=0" target="_blank" rel="noopener" class="policy-doc reveal">
+        <div class="policy-doc-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg></div>
+        <div class="policy-doc-title">National Agenda</div>
+        <div class="policy-doc-desc">Our founding document. The complete overview of the SNP's vision, values, and policy direction for Australia.</div>
+        <div class="policy-doc-link">Read Document</div>
+      </a>
+      <a href="https://www.dropbox.com/scl/fi/4ud8iir0obv033extdze3/SNP_Immigration_Policy_2026.pdf?rlkey=jk7hur68u2no9b0vbfwai8uk1&st=zc9scj64&dl=0" target="_blank" rel="noopener" class="policy-doc reveal">
+        <div class="policy-doc-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div>
+        <div class="policy-doc-title">Immigration Policy</div>
+        <div class="policy-doc-desc">The SNP's comprehensive framework for immigration, border security, citizenship, and national identity.</div>
+        <div class="policy-doc-link">Read Document</div>
+      </a>
+      <a href="assets/docs/snp-constitution.pdf" target="_blank" rel="noopener" class="policy-doc reveal">
+        <div class="policy-doc-icon"><svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg></div>
+        <div class="policy-doc-title">Australian Labour Corps</div>
+        <div class="policy-doc-desc">Full program details on the national civilian service — civic contribution, rehabilitation, and citizenship pathways.</div>
+        <div class="policy-doc-link">Read Document</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="assets/img/snp-logo-nav.svg" alt="Sovereign National Party">
+      <div class="footer-slogan">Your Home &nbsp;·&nbsp; Your Values &nbsp;·&nbsp; Your Australia</div>
+    </div>
+    <div class="footer-right">
+      <a href="https://x.com/SNP_Australia" target="_blank" rel="noopener" class="x-link">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Follow on X
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Sovereign National Party Australia. All rights reserved.</div>
+    <div class="footer-copy">Authorised by the Sovereign National Party Australia</div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+<script>
+  (function () {
+    const btn = document.querySelector('.nav-toggle');
+    const links = document.getElementById('navLinks');
+    if (!btn || !links) return;
+
+    btn.addEventListener('click', () => {
+      const open = links.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? '✕' : '☰';
+    });
+
+    links.addEventListener('click', (e) => {
+      if (e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'a') {
+        links.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = '☰';
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
